@@ -9,6 +9,7 @@ class BooksApp extends React.Component {
   constructor(){
     super();
     this.state = {
+      userBooks : new Map(),
       currentlyReadingBooks: [],
       wantToReadBooks: [],
       readBooks: [],
@@ -32,8 +33,14 @@ class BooksApp extends React.Component {
   sortBooks(books) {
     let currently = [],
       wantTo = [],
-      read = [];
+      read = [],
+      userBooks = new Map();
     books.forEach((book) => {
+      //Create a map of book ids with the corresponding shelves
+      //This map is used to maintain the same state of shelves in the search results page
+      userBooks.set(book.id,book.shelf);
+
+      //Sort the books as per the shelves
       switch (book.shelf) {
         case "currentlyReading":
           currently.push(book);
@@ -48,7 +55,14 @@ class BooksApp extends React.Component {
           break;
       }
     })
-    this.setState({currentlyReadingBooks: currently, wantToReadBooks: wantTo, readBooks: read})
+
+    this.setState(
+      {
+        currentlyReadingBooks: currently, 
+        wantToReadBooks: wantTo, 
+        readBooks: read,
+        userBooks: userBooks
+      })
   }
 
   searchBooks = (query) => {
@@ -56,6 +70,15 @@ class BooksApp extends React.Component {
       BooksAPI
         .search(query)
         .then((books) => {
+          let userBooks = this.state.userBooks;
+
+          //Find the books in search results which are already present in the user's shelves
+          books.map((book)=>{
+            if(userBooks.get(book.id)){
+              book.shelf = userBooks.get(book.id);
+            }
+            return book;
+          })
           this.setState({searchResults: books})
         })
     } else {
