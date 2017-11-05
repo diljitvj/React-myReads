@@ -1,15 +1,9 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import BookShelf from './bookShelf.js'
-import PropTypes from 'prop-types'
 
-class ListBooks extends Component {
-  static PropTypes = {
-    shelves : PropTypes.object.isRequired
-  }
-  
-  render() {
-    let shelves = this.props.shelves;
+function ListBooks(props) {
+    let shelves = props.shelves;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -17,9 +11,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf addToShelf={this.props.addToShelf} books={shelves.currentlyReadingBooks} title="Currently Reading"/>
-            <BookShelf addToShelf={this.props.addToShelf} books={shelves.wantToReadBooks} title="Want to Read"/>
-            <BookShelf addToShelf={this.props.addToShelf} books={shelves.readBooks} title="Read"/>
+            <BookShelf addToShelf={props.addToShelf} books={shelves.currentlyReadingBooks} title="Currently Reading"/>
+            <BookShelf addToShelf={props.addToShelf} books={shelves.wantToReadBooks} title="Want to Read"/>
+            <BookShelf addToShelf={props.addToShelf} books={shelves.readBooks} title="Read"/>
           </div>
         </div>
         <div className="open-search">
@@ -27,7 +21,6 @@ class ListBooks extends Component {
         </div>
       </div>
     )
-  }
 }
 
 export default ListBooks
