@@ -6,6 +6,8 @@ import ListBooks from './listBooks.js'
 import {Route} from 'react-router-dom'
 
 class BooksApp extends React.Component {
+  //Using constructor to initialize the components state
+  //Since there are no props passed to this component, It is not passed in the constructor 
   constructor(){
     super();
     this.state = {
@@ -27,7 +29,6 @@ class BooksApp extends React.Component {
       .then((books) => {
         this.sortBooks(books);
       })
-
   }
 
   sortBooks(books) {
