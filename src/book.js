@@ -1,14 +1,7 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-class Book extends Component {
-    static PropTypes = {
-        book: PropTypes.object.isRequired,
-        addToShelf: PropTypes.func.isRequired
-    }
-    render() {
-        let book = this.props.book;
-
+function Book(props) {
+        let book = props.book;
         return (
             <div>
                 {book
@@ -25,6 +18,7 @@ class Book extends Component {
                                             backgroundImage: `url(${book.imageLinks.thumbnail})`
                                         }}></div>
                                     )
+                                    /*Some books do not have a thumbnail, and in that case the background is set to black */
                                     : (
                                         <div
                                             className="book-cover"
@@ -50,6 +44,7 @@ class Book extends Component {
                             <div className="book-title">
                                 {book.title}</div>
                             <div className="book-authors">
+                                {/* Some Books do not have author names , So in that case display an empty string*/}
                                 {(book.authors && book.authors.length)
                                     ? (book.authors[0])
                                     : ("")}
@@ -61,7 +56,6 @@ class Book extends Component {
                     )}
             </div>
         )
-    }
 }
 
 export default Book
