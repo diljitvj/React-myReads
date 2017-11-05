@@ -6,16 +6,20 @@ import ListBooks from './listBooks.js'
 import {Route} from 'react-router-dom'
 
 class BooksApp extends React.Component {
-  state = {
-    currentlyReadingBooks: [],
-    wantToReadBooks: [],
-    readBooks: [],
-    searchResults: []
+  constructor(){
+    super();
+    this.state = {
+      currentlyReadingBooks: [],
+      wantToReadBooks: [],
+      readBooks: [],
+      searchResults: []
+    }
   }
 
   componentDidMount() {
     this.fetchBooks();
   }
+
   fetchBooks(){
     BooksAPI
       .getAll()

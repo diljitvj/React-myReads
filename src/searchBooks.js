@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Book from './book.js'
+import {Debounce} from 'react-throttle'
 
 class SearchBooks extends Component {
   state = {
@@ -25,13 +26,12 @@ class SearchBooks extends Component {
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              value={this.state.query}
-              onChange={(event) => {
-              this.onSearch(event.target.value)
-            }}/>
+            <Debounce time="400" handler="onChange">
+              <input
+                type="text"
+                placeholder="Search by title or author"
+                onChange={(event) => this.onSearch(event.target.value)}/>
+            </Debounce>
           </div>
         </div>
         <div className="search-books-results">

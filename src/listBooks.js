@@ -7,8 +7,7 @@ class ListBooks extends Component {
   static PropTypes = {
     shelves : PropTypes.object.isRequired
   }
-  state = { }
-
+  
   render() {
     let shelves = this.props.shelves;
     return (
